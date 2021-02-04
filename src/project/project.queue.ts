@@ -12,6 +12,7 @@ export class ProjectQueue {
 
   @Process('run')
   async run() {
+    return;
     const res = await axios.get('https://www.freelancer.com/api/projects/0.1/projects/active/?user_details=true&user_avatar=true&user_display_info=true&full_description=true&user_employer_reputation=true');
     const { projects, users } = res.data.result;
     const countries = ['India', 'Pakistan'];

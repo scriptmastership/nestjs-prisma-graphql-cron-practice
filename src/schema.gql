@@ -3,9 +3,10 @@
 # ------------------------------------------------------
 
 type Project {
-  project_id: String!
+  projectId: String!
   description: String!
   status: String!
+  createdAt: String!
 }
 
 type Query {

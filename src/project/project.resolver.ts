@@ -11,11 +11,7 @@ export class ProjectResolver {
   @Query(returns => Project)
   async project() {
     const project = await this.prismaService.project.findFirst();
-    return {
-      project_id: '1',
-      description: '1',
-      status: '1',
-    }
+    return project;
   }
 
   @Mutation(() => Project)
