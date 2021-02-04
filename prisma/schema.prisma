@@ -11,8 +11,9 @@ generator client {
 }
 
 model Project {
-  id            Int     @id @default(autoincrement())
-  project_id    String  @unique
+  id            Int       @id @default(autoincrement())
+  projectId     String    @unique
   description   String
   status        Json
+  createdAt     DateTime  @default(now())
 }
