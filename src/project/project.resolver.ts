@@ -14,7 +14,7 @@ export class ProjectResolver {
     return project;
   }
 
-  @Mutation(() => Project)
+  @Mutation(returns => Project)
   async deleteProject(
     @Args('id') id: number,
   ) {

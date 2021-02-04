@@ -45,6 +45,7 @@ export class ProjectQueue {
           userRole: chosen_role,
           userDate: moment.unix(registration_date).format('YYYY-MM-DD HH:mm:ss'),
           userRating: employer_reputation.entire_history.overall || 0,
+          userTotal: employer_reputation.entire_history.all || 0,
           userCompleted: employer_reputation.entire_history.complete || 0,
           userIncompleted: employer_reputation.entire_history.incomplete || 0,
           projectTitle: title,
