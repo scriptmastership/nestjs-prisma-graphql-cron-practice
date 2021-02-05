@@ -8,6 +8,7 @@ type Project {
   description: String!
   status: String!
   createdAt: String!
+  total: String!
 }
 
 type Query {

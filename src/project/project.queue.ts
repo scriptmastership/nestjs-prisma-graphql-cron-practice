@@ -12,10 +12,10 @@ export class ProjectQueue {
 
   @Process('run')
   async run() {
-    return;
     const res = await axios.get('https://www.freelancer.com/api/projects/0.1/projects/active/?user_details=true&user_avatar=true&user_display_info=true&full_description=true&user_employer_reputation=true');
     const { projects, users } = res.data.result;
-    const countries = ['India', 'Pakistan'];
+    const countries = ['India', 'Pakistan', 'Cameroon', 'Korea'];
+    const skills = ['css', 'autocad', 'javascript', 'python', 'php', 'html', 'amazon-web-services']
     for (let i = 0; i < projects.length; i++) {
       try {
         const {
@@ -26,7 +26,8 @@ export class ProjectQueue {
           seo_url,
           type,
           currency,
-          budget
+          budget,
+          language
         } = projects[i];
         const {
           avatar_large_cdn,
@@ -54,17 +55,39 @@ export class ProjectQueue {
           projectCurrency: currency.code,
           projectBudget: `${budget.minimum}-${budget.maximum}`
         };
-
         let skip = false;
-        for (let k = 0; k < 2; k++) {
-          if (status.userCountry.includes(countries[k])) {
+        // check language
+        if (!skip) {
+          if (language !== 'en') {
             skip = true;
-            break;
           }
         }
-        if (moment().diff(moment.unix(registration_date), 'days') > 1 && status.userRating === 0) {
-          skip = true;
+        // Check Country
+        if (!skip) {
+          for (let k = 0; k < countries.length; k++) {
+            if (status.userCountry.includes(countries[k])) {
+              skip = true;
+              break;
+            }
+          }
         }
+        // Check Date
+        if (!skip) {
+          if (moment().diff(moment.unix(registration_date), 'days') > 1 && status.userRating === 0) {
+            skip = true;
+          }
+        }
+        // Check Skill
+        // let hasSkill = false;
+        // for (let s = 0; s < skills.length; s++) {
+        //   if (status.projectLink.includes(skills[s])) {
+        //     hasSkill = true;
+        //     break;
+        //   }
+        // }
+        // if (!hasSkill) {
+        //   skip = true;
+        // }
         if (!skip) {
           await this.prismaService.project.create({
             data: {

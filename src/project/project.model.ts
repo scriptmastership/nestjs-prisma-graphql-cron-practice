@@ -7,4 +7,5 @@ export class Project {
   @Field() description: string;
   @Field() status: string;
   @Field() createdAt: string;
+  @Field() total: string;
 }

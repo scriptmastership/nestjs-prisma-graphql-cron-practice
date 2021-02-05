@@ -1,6 +1,7 @@
 import { Resolver, Query, Mutation, Args, Int } from '@nestjs/graphql';
 import { Project } from "./project.model";
 import { PrismaService } from "src/prisma/prisma.service";
+import * as moment from 'moment';
 
 @Resolver()
 export class ProjectResolver {
@@ -11,7 +12,12 @@ export class ProjectResolver {
   @Query(returns => Project)
   async project() {
     const project = await this.prismaService.project.findFirst();
-    return project;
+    const total = await this.prismaService.project.count();
+    return {
+      ...project,
+      createdAt: moment(project.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+      total
+    };
   }
 
   @Mutation(returns => Project)
@@ -22,8 +28,14 @@ export class ProjectResolver {
       where: {
         id
       }
-    })
-    return await this.prismaService.project.findFirst();
+    });
+    const project = await this.prismaService.project.findFirst();
+    const total = await this.prismaService.project.count();
+    return {
+      ...project,
+      createdAt: moment(project.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+      total
+    };
   }
 
 }
