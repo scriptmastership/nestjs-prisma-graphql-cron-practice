@@ -14,8 +14,8 @@ export class ProjectQueue {
   async run() {
     const res = await axios.get('https://www.freelancer.com/api/projects/0.1/projects/active/?user_details=true&user_avatar=true&user_display_info=true&full_description=true&user_employer_reputation=true');
     const { projects, users } = res.data.result;
-    const countries = ['India', 'Pakistan', 'Cameroon', 'Korea'];
-    const skills = ['css', 'autocad', 'javascript', 'python', 'php', 'html', 'amazon-web-services']
+    const countries = ['India', 'Pakistan', 'Cameroon', 'Korea', 'Bangladesh'];
+    const skills = ['css', 'javascript', 'python', 'php', 'html', 'amazon-web-services', 'windows', 'database-development', 'api', 'nodejs', 'seo', 'software-testing', 'web-scraping', 'angular-js', 'vue-js', 'mysql', '']
     for (let i = 0; i < projects.length; i++) {
       try {
         const {
@@ -98,7 +98,6 @@ export class ProjectQueue {
           });
         }
       } catch (error) {
-        console.log(projects[i].id + '--skipped');
       }
     }
   }
