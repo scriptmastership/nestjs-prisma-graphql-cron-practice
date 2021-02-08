@@ -11,7 +11,11 @@ export class ProjectResolver {
 
   @Query(returns => Project)
   async project() {
-    const project = await this.prismaService.project.findFirst();
+    const project = await this.prismaService.project.findFirst({
+      where: {
+        hidden: false
+      }
+    });
     const total = await this.prismaService.project.count();
     return {
       ...project,
@@ -24,9 +28,12 @@ export class ProjectResolver {
   async deleteProject(
     @Args('id') id: number,
   ) {
-    await this.prismaService.project.delete({
+    await this.prismaService.project.update({
       where: {
         id
+      },
+      data: {
+        hidden: true,
       }
     });
     const project = await this.prismaService.project.findFirst();

@@ -15,5 +15,6 @@ model Project {
   projectId     String    @unique
   description   String
   status        Json
+  hidden        Boolean  @default(false)
   createdAt     DateTime  @default(now())
 }
