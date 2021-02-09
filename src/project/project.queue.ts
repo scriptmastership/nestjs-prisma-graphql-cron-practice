@@ -15,7 +15,37 @@ export class ProjectQueue {
     const res = await axios.get('https://www.freelancer.com/api/projects/0.1/projects/active/?user_details=true&user_avatar=true&user_display_info=true&full_description=true&user_employer_reputation=true');
     const { projects, users } = res.data.result;
     const countries = ['India', 'Pakistan', 'Cameroon', 'Korea', 'Bangladesh'];
-    const skills = ['css', 'javascript', 'python', 'php', 'html', 'amazon-web-services', 'windows', 'database-development', 'api', 'nodejs', 'seo', 'software-testing', 'web-scraping', 'angular-js', 'vue-js', 'mysql', '']
+    const skills = [
+      'amazon-web-services',
+      'angular-js',
+      'aws-lambda',
+      'api',
+      'css',
+      'codeigniter',
+      'database-development',
+      'elasticsearch',
+      'full-stack-development',
+      'html',
+      'javascript',
+      'laravel',
+      'mysql',
+      'nodejs',
+      'php',
+      'programming',
+      'python',
+      'react-js',
+      'ruby-on-rails',
+      'seo',
+      'shopify-development',
+      'shopify-site',
+      'software-architecture',
+      'software-testing',
+      'sql',
+      'web-scraping',
+      'web-development',
+      'vue-js',
+      'windows'
+    ];
     for (let i = 0; i < projects.length; i++) {
       try {
         const {
@@ -78,16 +108,18 @@ export class ProjectQueue {
           }
         }
         // Check Skill
-        // let hasSkill = false;
-        // for (let s = 0; s < skills.length; s++) {
-        //   if (status.projectLink.includes(skills[s])) {
-        //     hasSkill = true;
-        //     break;
-        //   }
-        // }
-        // if (!hasSkill) {
-        //   skip = true;
-        // }
+        if (!skip) {
+          let hasSkill = false;
+          for (let s = 0; s < skills.length; s++) {
+            if (status.projectLink.includes(skills[s])) {
+              hasSkill = true;
+              break;
+            }
+          }
+          if (!hasSkill) {
+            skip = true;
+          }
+        }
         if (!skip) {
           await this.prismaService.project.create({
             data: {
