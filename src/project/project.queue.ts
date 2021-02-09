@@ -14,7 +14,38 @@ export class ProjectQueue {
   async run() {
     const res = await axios.get('https://www.freelancer.com/api/projects/0.1/projects/active/?user_details=true&user_avatar=true&user_display_info=true&full_description=true&user_employer_reputation=true');
     const { projects, users } = res.data.result;
-    const countries = ['India', 'Pakistan', 'Cameroon', 'Korea', 'Bangladesh'];
+    const countries = [
+      'India',
+      'Pakistan',
+      'Cameroon',
+      'Korea',
+      'Bangladesh',
+      'Armenia',
+      'Nigeria',
+      'Cambodia',
+      'Canada',
+      'Curacao',
+      'Malaysia',
+      'Singapore',
+      'Serbia',
+      'Germany',
+      'Africa',
+      'Arabia',
+      'Jordan',
+      'Israel',
+      'Lanka',
+      'Egypt',
+      'Indonesia',
+      'Czech',
+      'Lebanon',
+      'New Caledonia',
+      'China',
+      'Albania',
+      'Morocco',
+      'Moldova',
+      'Kazakhstan',
+      'Lithuania'
+    ];
     const skills = [
       'amazon-web-services',
       'angular-js',
@@ -31,14 +62,11 @@ export class ProjectQueue {
       'mysql',
       'nodejs',
       'php',
-      'programming',
       'python',
       'react-js',
       'ruby-on-rails',
-      'seo',
       'shopify-development',
       'shopify-site',
-      'software-architecture',
       'software-testing',
       'sql',
       'web-scraping',
@@ -86,6 +114,12 @@ export class ProjectQueue {
           projectBudget: `${budget.minimum}-${budget.maximum}`
         };
         let skip = false;
+        // Check employer
+        if (!skip) {
+          if (status.userRole !== 'employer') {
+            skip = true;
+          }
+        }
         // check language
         if (!skip) {
           if (language !== 'en') {
@@ -103,7 +137,7 @@ export class ProjectQueue {
         }
         // Check Date
         if (!skip) {
-          if (moment().diff(moment.unix(registration_date), 'days') > 1 && status.userRating === 0) {
+          if (moment().diff(moment.unix(registration_date), 'days') > 0 && status.userRating === 0) {
             skip = true;
           }
         }
