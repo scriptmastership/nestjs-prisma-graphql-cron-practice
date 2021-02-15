@@ -12,11 +12,9 @@ export class ProjectResolver {
   @Query(returns => Project)
   async project() {
     const project = await this.prismaService.project.findFirst({
-      orderBy: [
-        {
-          createdAt: 'asc',
-        }
-      ],
+      orderBy: {
+        createdAt: 'asc',
+      },
     });
     const total = await this.prismaService.project.count();
     return {

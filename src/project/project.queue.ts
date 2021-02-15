@@ -44,7 +44,8 @@ export class ProjectQueue {
       'Morocco',
       'Moldova',
       'Kazakhstan',
-      'Lithuania'
+      'Lithuania',
+      'Ukraine'
     ];
     const skills = [
       'amazon-web-services',
@@ -52,7 +53,6 @@ export class ProjectQueue {
       'aws-lambda',
       'api',
       'css',
-      'codeigniter',
       'database-development',
       'elasticsearch',
       'full-stack-development',
@@ -64,15 +64,9 @@ export class ProjectQueue {
       'php',
       'python',
       'react-js',
-      'ruby-on-rails',
-      'shopify-development',
-      'shopify-site',
-      'software-testing',
       'sql',
       'web-scraping',
       'web-development',
-      'vue-js',
-      'windows'
     ];
     for (let i = 0; i < projects.length; i++) {
       try {
