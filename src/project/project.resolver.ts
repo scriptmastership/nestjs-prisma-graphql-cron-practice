@@ -34,11 +34,16 @@ export class ProjectResolver {
         id
       }
     });
-    const project = await this.prismaService.project.findFirst();
+    const project = await await this.prismaService.project.findMany({
+      take: 1,
+      orderBy: {
+        id: 'asc',
+      },
+    });
     const total = await this.prismaService.project.count();
     return {
-      ...project,
-      createdAt: moment(project.createdAt).format('YYYY-MM-DD HH:mm:ss'),
+      ...project[0],
+      createdAt: moment(project[0].createdAt).format('YYYY-MM-DD HH:mm:ss'),
       total
     };
   }
