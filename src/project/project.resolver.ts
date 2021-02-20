@@ -13,7 +13,7 @@ export class ProjectResolver {
   async project() {
     const project = await this.prismaService.project.findFirst({
       orderBy: {
-        createdAt: 'asc',
+        id: 'asc',
       },
     });
     const total = await this.prismaService.project.count();
