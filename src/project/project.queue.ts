@@ -45,7 +45,9 @@ export class ProjectQueue {
       'Moldova',
       'Kazakhstan',
       'Lithuania',
-      'Ukraine'
+      'Ukraine',
+      'Russian Federation',
+      'Kenya'
     ];
     const skills = [
       'amazon-web-services',
